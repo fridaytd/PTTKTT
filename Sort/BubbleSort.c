@@ -15,24 +15,13 @@ void Swap(recordtype *a, recordtype *b)
     *b = temp;
 }
 
-void SelectionSort(recordtype a[], int n)
+void BubbleSort(recordtype a[], int n)
 {
-    int i, j, lowindex;
-    keytype lowkey;
-    for (i = 0; i <= n - 2; i++)
-    {
-        lowkey = a[i].key;
-        lowindex = i;
-        for (j = i + 1; j <= n - 1; j++)
-        {
-            if (a[j].key < lowkey)
-            {
-                lowindex = j;
-                lowkey = a[j].key;
-            }
-        }
-        Swap(&a[i], &a[lowindex]);
-    }
+	int i, j;
+	for (i = 0; i <= n-2; i++)
+		for (j = n -1; j >= i + 1; j--)
+			if (a[j].key < a[j - 1].key)
+				Swap(&a[j], &a[j - 1]);
 }
 
 void Read_Data(recordtype a[], int *n)
@@ -63,15 +52,16 @@ void Print_Data(recordtype a[], int n)
 	}
 }
 
+
 int main()
 {
 	recordtype a[100];
 	int n;
-	printf("Thuat toan Selection Sort \n\n");
+	printf("Thuat toan Bubble Sort \n\n");
 	Read_Data(a, &n);
 	printf("Du lieu truoc khi sap xep\n");
 	Print_Data(a, n);
-	SelectionSort(a, n);
+	BubbleSort(a, n);
 	printf("\nDu lieu sau khi sap xep\n");
 	Print_Data(a, n);
     return 0;

@@ -15,26 +15,6 @@ void Swap(recordtype *a, recordtype *b)
     *b = temp;
 }
 
-void SelectionSort(recordtype a[], int n)
-{
-    int i, j, lowindex;
-    keytype lowkey;
-    for (i = 0; i <= n - 2; i++)
-    {
-        lowkey = a[i].key;
-        lowindex = i;
-        for (j = i + 1; j <= n - 1; j++)
-        {
-            if (a[j].key < lowkey)
-            {
-                lowindex = j;
-                lowkey = a[j].key;
-            }
-        }
-        Swap(&a[i], &a[lowindex]);
-    }
-}
-
 void Read_Data(recordtype a[], int *n)
 {
 	FILE *f;
@@ -63,16 +43,60 @@ void Print_Data(recordtype a[], int n)
 	}
 }
 
-int main()
+int FindPivot(recordtype a[], int i, int j)
+{
+	keytype firstkey;
+	int k = i + 1;
+	firstkey = a[i].key;
+	while ((k <= j) && (a[k].key == firstkey))
+		k++;
+	if (k > j)
+		return -1;
+	else 
+		return (a[k].key > firstkey) ? k : i;
+}
+
+int Partition(recordtype a[], int i, int j, keytype pivot)
+{
+	int L, R;
+	L = i;
+	R = j;
+	while (L <= R)
+	{
+		while (a[L].key < pivot)
+			L++;
+		while (a[R].key >= pivot)
+			R--;
+		if (L < R)
+			Swap(&a[L],&a[R]);
+	}
+	return L;
+}
+
+void QuickSort(recordtype a[], int i, int j)
+{
+	keytype pivot;
+	int pivotindex, k;
+	pivotindex = FindPivot(a, i, j);
+	if (pivotindex != -1)
+	{
+		pivot = a[pivotindex].key;
+		k = Partition(a, i, j, pivot);
+		QuickSort(a,i,k-1);
+		QuickSort(a,k,j);
+	}
+}
+
+int main() 
 {
 	recordtype a[100];
 	int n;
-	printf("Thuat toan Selection Sort \n\n");
+	printf("Thuat toan Quick Sort \n\n");
 	Read_Data(a, &n);
 	printf("Du lieu truoc khi sap xep\n");
 	Print_Data(a, n);
-	SelectionSort(a, n);
+	QuickSort(a, 0, n -1);
 	printf("\nDu lieu sau khi sap xep\n");
 	Print_Data(a, n);
-    return 0;
+	return 0;
 }
