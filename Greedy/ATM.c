@@ -63,7 +63,7 @@ void InDS(Tien *dslt, int n, int TienCanRut)
         printf("|%-25s", dslt[i].TenTien);
         printf("|%-9d", dslt[i].MG);
         printf("|%-9d", dslt[i].PA);
-        printf("%-10d|\n", dslt[i].MG * dslt[i].PA);
+        printf("|%-10d|\n", dslt[i].MG * dslt[i].PA);
         TongTienTra += dslt[i].MG * dslt[i].PA;
     }
     printf("|---|-------------------------|---------|---------|----------|\n");

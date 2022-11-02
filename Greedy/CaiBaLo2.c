@@ -7,7 +7,8 @@
 typedef struct DoVat
 {
     char TenDV[50];
-    float TL, GT, SL, DG;
+    float TL, GT, DG;
+    int SL;
     int PA;
 } DoVat;
 
@@ -59,7 +60,7 @@ void InDSDV(DoVat *dsdv, int n, float w)
 {
     int i;
     float TongGT = 0, TongTL = 0;
-    printf("Phuong an Cai ba lo 1 su dung thuat toan THAM AN nhu sau: \n");
+    printf("Phuong an Cai ba lo 3 su dung thuat toan THAM AN nhu sau: \n");
     printf("Trong luong cai ba lo = %-9.2f\n", w);
     printf("|---|------------------|---------|---------|---------|---------|-----------|\n");
     printf("|STT|    Ten Do vat    | T Luong | Gia Tri |So Luong | Don Gia | Phuong An |\n");
@@ -84,7 +85,7 @@ void Greedy(DoVat *dsdv, int n, float w)
     int i;
     for (i = 0; i < n; i++)
     {
-        dsdv[i].PA = (dsdv[i].SL > w / dsdv[i].TL) ? dsdv[i].SL : w / dsdv[i].TL;
+        dsdv[i].PA = (dsdv[i].SL < w / dsdv[i].TL) ? dsdv[i].SL : w / dsdv[i].TL;
         w -= dsdv[i].PA * dsdv[i].TL;
     }
 }
